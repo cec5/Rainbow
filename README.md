@@ -264,6 +264,6 @@ Calls absent from this table, `evnt_keybd` among them, are unimplemented and rep
 
 Beyond the per-call gaps above:
 
-- **Line-A instructions halt the guest.** Atari's low-level graphics interface occupies the 68000's `$A` opcode space. The layer reserves the vector but routes it into the same handler as a genuine fault, so software using those routines (games above all) stops rather than degrading. Atari deprecated Line-A in favour of the VDI, which the layer does implement, but real software still used it.
+- **Line-A instructions halt the guest.** Atari's low-level graphics interface occupies the 68000's `$A` opcode space. The layer reserves the vector but routes it into the same handler as a genuine fault, so applications making those calls stops completely. Atari deprecated Line-A in favour of the VDI, which the layer does implement, but real software still used it.
 - **Off-screen memory forms** in `vro_cpyfm` are rejected, so bundled `.IMG` clip art does not render.
 - **The canvas is not a real ST mode.** It reports 16 colours while `Getrez` reports ST high, which was monochrome. A resource asking for colour index 2 gets a colour rather than black.
