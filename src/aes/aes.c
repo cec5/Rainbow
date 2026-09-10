@@ -15,8 +15,9 @@
 
 /* Each handler carries a status tag at its definition: [FULL] behaves as TOS
  * specifies within the layer's scope, [PARTIAL] works but with a stated gap,
- * [NO-OP] is accepted and answered but changes nothing. Calls absent from this
- * table are the fourth case, unimplemented, and are reported by opcode only. */
+ * [NO-OP] is accepted and answered but changes nothing. A NULL handler here is
+ * the fourth case: unimplemented, named only so the log can report it. Calls
+ * absent from the table entirely are logged as "Unknown". */
 typedef struct {
     unsigned int opcode;
     const char  *name;
@@ -26,6 +27,7 @@ typedef struct {
 static const AesCall s_calls[] = {
     { 0x0A, "appl_init",      aes_appl_init      },
     { 0x13, "appl_exit",      aes_appl_exit      },
+    { 0x14, "evnt_keybd",     NULL               },
     { 0x15, "evnt_button",    aes_evnt_button    },
     { 0x16, "evnt_mouse",     aes_evnt_mouse     },
     { 0x17, "evnt_mesag",     aes_evnt_mesag     },
@@ -44,6 +46,7 @@ static const AesCall s_calls[] = {
     { 0x34, "form_alert",     aes_form_alert     },
     { 0x36, "form_center",    aes_form_center    },
     { 0x46, "graf_rubberbox", aes_graf_rubberbox },
+    { 0x47, "graf_dragbox",   NULL               },
     { 0x49, "graf_growbox",   aes_graf_growbox   },
     { 0x4D, "graf_handle",    aes_graf_handle    },
     { 0x4E, "graf_mouse",     aes_graf_mouse     },
