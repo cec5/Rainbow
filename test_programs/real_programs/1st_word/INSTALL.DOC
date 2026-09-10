@@ -1,0 +1,409 @@
+0660203030466
+11st WordInstallation Guide
+2Preliminarypage #7th February 1986
+9[....................................................]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Å1STWORD
+Ä
+ÅPrinterInstallationGuide
+Ä
+
+     âCONTENTS
+Ä
+1    Introduction
+
+2    FileFormat
+
+3    PrinterName
+
+4    ConfigurableVariables
+
+5    PrinterCharacteristics
+
+6    CharacterTranslationTable
+
+
+
+Å1    IntroductionÄ
+
+Thisdocumentisintendedforanyonewhowantstocreatea
+printerconfigurationfileforaprinternotyetsupportedby
+GST.Itexplainstheformatandcontentsoftheprinter
+configurationfile,andhowitisusedbytheprinterdriver.
+
+TheexistingprinterconfigurationfilesforQumeandEpson
+compatibleprintersshouldbereadasexamples.
+
+
+Whenproducingaconfigurationforaprinter,itmayprove
+necessarytoconfiguretheprinteritself:manyprintershave
+setsofswitcheswhichaffectthingssuchasautolinefeedor
+paperlength.TheexistingEpsonprinterconfigurations
+assumethattheprinterissetforaUSAcharacterset,noLF
+afterCR,andnoperforationskip.
+
+Withdaisywheelprinters,theactualdaisywheelinusewill
+affecttherequirementsforthecharactertranslationtable.
+
+IfyouaredrivingtheprinteronanRS232serialline,you
+mayneedtoexperimentwiththecableconnections.Youmust
+connectthehardwarehandshakelines,astheprinterdriver
+doesnotusetheXON/XOFFhandshake.Thecableweuseis
+connectedasfollows,andworksformostprinters:
+
+
+     AtariST       Printer
+
+   Protect        1-----------1
+     TXdata        2-----------3
+     Handshake      5-----------20
+     SignalGround  7-----------7
+
+
+
+Å2    FileFormatÄ
+
+Theprinterconfigurationfileisatextfilewhichcanbe
+editedusing1stWord.Mostofthedatainthefileis
+numeric,andnumbersareassumedtobeinhexadecimal(base
+16).Linesstartingwithanasterisk(*)arecomments.
+
+ThisfileisreadbyaprogramcalledINSTALL.PRGwhichpacks
+thisdataintoasmallbinaryfilewhichisthenusedbythe
+printerdriver.
+
+Thedataheldinthefilefallsintofoursections,described
+insections3to6below.
+
+
+Å3    PrinterNameÄ
+
+Thefirstnon-blanklineinthefile(excludingcomments)is
+assumedtobethenameoftheprinter.Thisnameis
+displayedintheprinterdriver'swindow.
+
+
+Å4    MiscellaneousConfigurableVariablesÄ
+
+Thissectioncontainsalistofsixnumbers,onaline
+together.Theyaredescribedbelow.
+
+
+Å4.1  PrinterTypeÄ
+
+Thisshouldbe1foradaisywheelprinterwhichallowsfine
+controloverhorizontalandverticalprinting.Zerohere
+indicatesadotmatrixprinter,orsomeothertypeof
+printer.Daisywheelprinterswhichdonotallowfinecontrol
+ofpositioning(egBrotherHR-1)shouldbeinstalledlike
+this.
+
+Theprinterdrivertreatsthetwotypesofprinterquite
+differently.Onadaisywheelprinter,thespacesbetween
+wordsareadjustedtospreadoutthespaceevenlybetweenthe
+words.Thismeansthatinordertounderlinespaces,
+underliningisdoneasaseparatepassafterthetext.In
+NLQmode,changestoandfromitalictextcausetheprogram
+topausetoallowthedaisywheeltobechanged.
+
+Itisassumedthatnon-daisywheelprintershavecommand
+sequencestocontrolunderliningandothertextstyles:the
+commandissenttotheprinter,buttheprinterdriverdoes
+nomorethanthat.Therearedifferentcommandsequencesto
+besentindraftmodeandNLQmode.
+
+
+Å4.2  UnitWidthÄ
+
+(Daisywheelonly)Thisspecifiesthewidthofonecharacter
+intheprinter'sownwidthunits.
+
+Å
+4.3  UnitHeightÄ
+
+(Daisywheelonly)Thisspecifiesthesizeofalinefeedin
+theprinter'sownheightunits.
+
+
+Å4.4  MiddleofcarriageÄ
+
+(Daisywheelonly)Thisspecifiesthepositionthedaisywheel
+ismovedtowhenfeedingpaper:itshouldnormallybeinthe
+middleofthepaper.Thepositionisspecifiedinprinter
+unitsfromtheleftmargin.
+
+
+ÛÅ4.5  CarriageshiftforBoldÄ
+
+(Daisywheelonly)Thisspecifiesahorizontaloffsetusedby
+theprinterdriverwhenprintingboldtext:itprintsthe
+characteronce,movesalongafraction,andprintsagain.
+
+
+Å4.6  PausebetweenpagesÄ
+
+Ifzero,theprinterdriverdoesnotpausebetweenpages.If
+nonzero,theprinterdriverpausesattheendofeachpageto
+allowthepapertobechanged.
+
+Thiswasnotpresentonearlyversionsoftheprogram:if
+yourprinterconfigurationfileshaveonlyfiveentrieshere,
+contactyourdealer(orAtari)forthenewversion.
+
+
+Å5    PrinterCharacteristicsÄ
+
+Thisisatableofcommandsequenceswhichmaybesenttothe
+printer.Notallofthetableentriesmustbepresent,but
+theymustbeinincreasingnumericorder.
+
+Eachtableentry,ifpresent,startswithitsentrynumber.
+Thecodestobesenttotheprinterthenfollow.Acomment
+maybeincludedonthelineafteranasterisk.Avaluemore
+than80(hex)isaplace-holderforvariablebinary
+informationtobesenttotheprinter:thedifferenceafter
+subtracting80isaddedtothevaluetobeoutput.(For
+example,onaQume-compatibleprinter,commandstocontrol
+characterwidthrequireavaluetobeoutputofwidth+1,so
+theplaceholderinthecommandis81.)
+
+Thetableisterminatedbyanullentry,buttheremustbeat
+leastonenon-zeroentrybeforethis.
+
+Inadditiontotheinitialisationstringslistedbelow,the
+printerdriversendsallthecommandswhichturnoffprint
+stylesatthestartofadocument.
+
+
+Å5.0  SetCharacterWidthÄ
+
+(Daisywheelonly)Thiscommandisusedtosendcharacter
+widthchangestotheprinter.Itshouldcontainaplaceholder
+forthewidth.
+
+
+Å5.1  LinefeedÄ
+
+Thiscommandcontainsthecodetobesenttotheprinterat
+theendofaline.Typically,itisjustalinefeedfor
+daisywheelprintersbeingdrivenbidirectionally,orlinefeed
+andcarriagereturnfordotmatrixprinters.
+
+
+Å5.2  ForwardPrint
+
+
+5.3  BackwardPrint
+Ä
+(Daisywheelonly)Thesearethecommandstotelltheprinter
+whichdirectiontomovetheprinthead.
+
+
+˘Å5.4  VerticalTabÄ
+
+(Optional)Thiscommandfeedsthepaperbyseverallines.The
+commandshouldincludeaplaceholderforthelinenumber.If
+thiscommandsequenceisomittedfromthetable,several
+linefeedswillbeusedinstead.
+
+Thereisaslightproblemwithusingverticaltabsonsome
+printers.Ifyouhaveadocumentwithover-longlines,and
+theprinterautomaticallywrapslineswhicharetoolong,
+thismaycausetheprinter'slinenumbertogetoutofstep
+withtheprogram'slinenumber.Verticaltabswouldthen
+typicallyskiptothestartofthenextpage.
+
+
+Å5.5  AbsoluteHorizontalTabÄ
+
+(Non-daisywheel,optional)Thiscommandisthehorizontal
+equivalentoftheabove:itmoveshorizontallytoaspecified
+characterposition.
+
+
+Å5.6  DraftBoldOn
+Ä
+(Non-daisywheel,optional)Thisandthefollowingstyle
+changecommandsaresenttotheprintertoswitchitintothe
+appropriatetextstyle.Thereareseparatecommandsequences
+tobesentinbothdraftmodeandNLQmode.
+
+
+Å5.7  DraftBoldOff
+
+
+5.8  NLQBoldOn
+
+
+5.9  NLQBoldOff
+
+ÄThisshouldensurethattheprinterisinnon-boldNLQmode,
+aswellasturningoffbold.Allofthecommandswhichturn
+offastyleinNLQmodeshouldensurethettheprinterisin
+NLQ.
+
+
+Å5.A  DraftItalicOn
+
+
+5.B  DraftItalicOff
+Ä
+
+¯Å5.C  NLQItalicOnÄ
+
+(Nondaisywheel)Wediscovered,whencreatingthe
+configurationfilefortheEpsonLX-80,thatitcannotprint
+italicNLQtext.ThiscommandintheLX-80driverturnsoff
+NLQmode,andthenextoneturnsitbackon.
+
+
+Å5.D  NLQItalicOff
+
+
+5.E  DraftLightOn
+
+
+5.F  DraftLightOff
+
+
+5.10 NLQLightOn
+Ä
+(Nondaisywheel)InourLX-80configurationfile,wemake
+"Light"textappearinanon-NLQfount.
+
+
+Å5.11 NLQLightOff
+
+
+5.12 DraftSuperscriptOnÄ
+
+Forcorrectjustificationoftext,superscriptandsubscript
+charactersshouldbethesamewidthasnormaltext.Usea
+halflinefeedondaisywheelprinters.
+
+
+Å5.13 DraftSuperscriptOff
+
+
+5.14 NLQSuperscriptOn
+
+
+5.15NLQSuperscriptOff
+
+
+5.16 DraftSubscriptOn
+
+
+5.17 DraftSubscriptOff
+
+
+5.18 NLQSubscriptOn
+
+
+5.19 NLQSubscriptOff
+
+
+5.1ADraftUnderlineOn
+Ä
+(Non-daisywheel)Notethatunderliningonadaisywheel
+printerisperformedbyaseparatepassoftheline,sothat
+underlinedstretchedspacesworkproperly.
+
+
+Å5.1B DraftUnderlineOff
+
+
+5.1C NLQUnderlineOn
+
+
+5.1D NLQUnderlineOff
+
+
+5.1E FormfeedÄ
+
+(Optional)Ifthiscodeisdefined,itisusedtofeedthe
+papertothetopofthenextsheet.Ifnotdefined,linefeeds
+willbeused.
+
+
+Å5.1F HorizontalInitialisationÄ
+
+(Optional)Foranon-daisywheelprinter,thiscodeissent
+onceonlyatthestartofthedocument.
+
+Foradaisywheelprinter,thiscommandmayincludea
+characterwidthcommand,andanyplaceholder(seeabove)will
+bereplacedbythedefaultcharacterwidthfromÅ4.2Äabove.
+
+
+Å5.20 VerticalInitialisationÄ
+
+(Optional)Foranon-daisywheelprinter,thiscodeissent
+onceonlyatthestartofthedocument.
+
+Foradaisywheelprinter,thiscommandmayincludealinefeed
+distancecommand,andanyplaceholder(seeabove)willbe
+replacedbythedefaultlineheightfromÅ4.3Äabove.
+
+Youmaywanttoincludeaformfeedinthisinitialisation
+stringtoensurethattheprinterisatthestartofa
+document.
+
+
+Å5.21 PrinterResetÄ
+
+(Optional)Thiscommandissenttotheprinterattheendof
+thedocumenttoresetitforusebyotherprograms.
+
+Å6    CharacterTranslationTable
+Ä
+Thistablehasasimilarstructuretothecommandtable
+above,butitisusedtotranslatecharactersbefore
+transmission.
+
+MostoftheÅfirsthalfÄoftheAtariextendedinternational
+charactersetcanbesentdirectlytoaprinterwithout
+translation.Thereneednotbeanyentryinthetablefora
+standardasciicharacter.
+
+Accentedcharactersandotherinternationalcharactersinthe
+secondhalfofthecharactersetcanbeprintedonsome
+printerseitherbyoverprintingorbysendingcommandstothe
+printertoswitchfount.Inthiscasethetableentryshould
+startwiththecodeofthecharactertobetranslated,
+followedbythedatatobesenttotheprinter.
+
+Whereacharactercannotbesatisfactorilyprinted,atable
+entrygivingjustthecharactercodewithoutanytranslation
+willcausetheprinterdrivertoskipthatcharacter.
+
+Thetablemustbeinascendingorder,andterminatedwitha
+zeroentry.
+
+SeethestandardEpsonconfigurationforlanguagetranslation
+commandstoaccesscharacters(itswitchesbacktotheUSA
+fountforsomestandardasciisymbols).
+
+SeethestandardQUMEconfigurationfileforaccented
+charactersonanEnglishdaisywheelachievedbyoverprinting.
+Thistablewillneedchangingfordifferentdaisywheels!
+
+Thereisnofixedsizelimitonthesizeofthetable,so
+adventurousinstallerscouldtryincludingcommandsto
+downloadcharactershapesintodotmatrixprintersforsome
+ofthemoreexoticcharacters.
+

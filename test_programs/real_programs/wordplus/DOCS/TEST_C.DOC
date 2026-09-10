@@ -1,0 +1,127 @@
+06603000203800
+1
+21st Word PlusPage # of 2Print Style Test
+F0110030
+R   [.....................................................................................]211
+9[...................................................]011
+€
+
+9[..............................]311
+1STWORDPLUS
+
+PRINTSTYLESTEST
+
+
+
+9[...................................................]011
+‰ExpandedText
+€
+9[..............................]311
+ThisparagraphisprintedinExpanded,
+justifiedto39characters(6.5inches)
+
+*    Bold
+€*    ˆUnderline
+€*    „Italic 
+€*    ‚Light
+€*     Subscript€andsuperscript€
+
+
+9[...................................................]011
+‰PicaText€
+
+ThisparagraphisprintedinPicatext,justifiedto65
+characters(6.5inches)
+
+*    Bold
+€*    ˆUnderline
+€*    „Italic 
+€*    ‚Light
+€*     Subscript€andsuperscript€
+
+
+9[...................................................]011
+‰EliteText€
+
+9[.............................................................]111
+ThisparagraphisprintedinElitetext,justifiedto78characters
+(6.5 inches)
+
+*    Bold
+€*    ˆUnderline
+€*    „Italic 
+€*    ‚Light
+€*     Subscript€andsuperscript€
+
+
+9[...................................................]011
+‰CondensedText€
+
+9[........................................................................................]211
+ThisparagraphisprintedinCondensedtext,justifiedto112characters(6.5inches).Thisparagraphis
+printedinCondensedtext,justifiedto112characters(6.5inches)
+9[........................................................................................]211
+
+*    Bold
+€*    ˆUnderline
+€*    „Italic 
+€*    ‚Light
+€*     Subscript€andsuperscript€
+
+
+9[...................................................]011
+‰CharacterSet
+€
+Thisprinterhasbeenconfiguredtoprintthefollowing
+charactersfromtheAtariSTcharacterset(range$20-FF):
+
+!"#$%&'()*+,-./0123456789:;<=>?
+@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_
+`abcdefghijklmnopqrstuvwxyz{|}~
+€‚ƒ„…†‡ˆ‰Š‹Œ‘’“”•–—˜™š›œŸ
+ ¡¢£¤¥¦§¨©ª«¬­®¯°±²³´µ¶·¸¹º»¼½¾¿
+ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏĞÑÒÓÔÕÖ×ØÙÚÛÜİŞß
+àáâãäåæçèéêëìíîïğñòóôõö÷øùúûüışÿ
+
+
+9[...................................................]011
+‰Graphicstest
+€
+Hereisapicturethathasbeencapturedfrom„EasyDraw2:
+€
+8001100002\IMAGES\SHIP_C.IMG
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Thislineshouldappearafterthepictureifthegraphicsaspect
+ratiohasbeensetupcorrectly02,1€.
+ 
+
+GST Software,Cambridge Science Park,Cambridge,CB4 4WE,England
+Telex:81113(PMPROFG)                        Fax:+449548o318
+€
+N001:003100990002
+€Youmayneedtoadjustthepositionofthisparagraphtomatchyourprinter'sgraphicsaspectratio.
+
+E
