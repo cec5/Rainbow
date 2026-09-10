@@ -1,6 +1,6 @@
 # Rainbow
 
-Native execution of legacy Atari TOS/GEM applications on modern Windows.
+Execution of Atari TOS/GEM binaries on modern Windows.
 
 **Course:** COMP4003 MSc Project  
 **Author:** Christopher Cortez  
