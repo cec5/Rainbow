@@ -115,9 +115,7 @@ Status of every call Rainbow recognizes; the same tags are in the source at each
 - **No-op**: accepted and answered, changes nothing.
 - **Unimpl**: named for the trace only; does nothing.
 
-62 full, 24 partial, 13 no-op, 7 unimpl (106 total).
-
-### GEMDOS (`TRAP #1`)
+62 full, 24 partial, 13 no-op, 10 unimpl (109 total).
 
 | Opcode | Call | Status |
 |---|---|---|
@@ -169,6 +167,7 @@ Only the console device (2) is modeled; PRT, AUX, MIDI and IKBD are ignored.
 |---|---|---|
 | `0x0A` | `appl_init` | Full |
 | `0x13` | `appl_exit` | No-op. Nothing is registered to unregister |
+| `0x14` | `evnt_keybd` | Unimpl |
 | `0x15` | `evnt_button` | Partial. Left button only, no multi-click counting |
 | `0x16` | `evnt_mouse` | Full |
 | `0x17` | `evnt_mesag` | Full |
@@ -187,6 +186,7 @@ Only the console device (2) is modeled; PRT, AUX, MIDI and IKBD are ignored.
 | `0x34` | `form_alert` | Full. Via `MessageBoxA` |
 | `0x36` | `form_center` | Full |
 | `0x46` | `graf_rubberbox` | Full |
+| `0x47` | `graf_dragbox` | Unimpl. Reached by 1st Word Plus |
 | `0x49` | `graf_growbox` | Full |
 | `0x4D` | `graf_handle` | Full |
 | `0x4E` | `graf_mouse` | Partial. Shapes map to host cursors; hiding is ignored |
@@ -209,7 +209,7 @@ Only the console device (2) is modeled; PRT, AUX, MIDI and IKBD are ignored.
 | `0x78` | `shel_read` | Partial. Always an empty command line |
 | `0x7C` | `shel_find` | Full |
 
-Calls not in this table, including `evnt_keybd`, are unimplemented and logged by opcode number only.
+Calls not in this table are unimplemented and logged as `Unknown` with their opcode.
 
 ### VDI (`TRAP #2`, `D0` = `0x73`)
 
@@ -219,7 +219,7 @@ Calls not in this table, including `evnt_keybd`, are unimplemented and logged by
 | `0x03` | `v_clrwk` | No-op. Every repaint already clears |
 | `0x06` | `v_pline` | Full |
 | `0x08` | `v_gtext` | Partial. Long strings truncated |
-| `0x09` | `v_fillarea` | Unimpl |
+| `0x09` | `v_fillarea` | Unimpl. Reached by 1st Word |
 | `0x0B` | `v_gdp` | Partial. `v_bar` only of the ten primitives; `v_justified` is the notable gap |
 | `0x0C` | `vst_height` | Partial. Metrics answered, font size fixed |
 | `0x0D` | `vst_rotation` | Unimpl |
@@ -231,6 +231,7 @@ Calls not in this table, including `evnt_keybd`, are unimplemented and logged by
 | `0x15` | `vst_font` | Unimpl |
 | `0x16` | `vst_color` | Full |
 | `0x17` | `vsf_interior` | Full. Hollow vs solid; patterns collapse to solid |
+| `0x18` | `vsf_style` | Unimpl. Reached by 1st Word |
 | `0x19` | `vsf_color` | Full |
 | `0x1A` | `vq_color` | Full |
 | `0x20` | `vswr_mode` | Full. Replace and XOR |
